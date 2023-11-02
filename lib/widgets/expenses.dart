@@ -5,7 +5,7 @@ import 'package:xpense_app/widgets/new_expense.dart';
 import '../models/expense_model.dart';
 
 class Expenses extends StatefulWidget {
-  Expenses({super.key});
+  const Expenses({super.key});
 
   @override
   State<Expenses> createState() {
@@ -38,7 +38,7 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Xpense Tracker'),
+        title: const Text('Xpense Tracker'),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
@@ -48,7 +48,7 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
       children: [
-        Text('The chart'),
+        const Text('The chart'),
         Expanded(
           child: ExpensesList(
             expenses: _registeredExpenses
