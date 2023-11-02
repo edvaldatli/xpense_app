@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:xpense_app/widgets/expenses_list/expenses_list.dart';
 import 'package:xpense_app/widgets/new_expense.dart';
-import '../models/expense_model.dart';
+import 'package:xpense_app/models/expense_model.dart';
+
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -29,13 +32,51 @@ class _ExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context, 
-      builder: (context) => const NewExpense()
+      builder: (context) => NewExpense(onAddExpense: _addExpense)
     );
+  }
+
+  void _addExpense(Expense newExpense){
+    setState(() {
+      _registeredExpenses.add(newExpense);
+    });
+  }
+
+  void _removeExpense(Expense expense){
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text('Expense deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ));
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = Center(
+      child: Text('No expenses found. Start adding some')
+    );
+
+    if(_registeredExpenses.isNotEmpty) {
+      mainContent = ExpensesList(
+      expenses: _registeredExpenses,
+      onRemoveExpense: _removeExpense,
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Xpense Tracker'),
@@ -50,9 +91,8 @@ class _ExpensesState extends State<Expenses> {
       children: [
         const Text('The chart'),
         Expanded(
-          child: ExpensesList(
-            expenses: _registeredExpenses
-          )),
+          child: mainContent
+        ),
       ],
     ));
   }
