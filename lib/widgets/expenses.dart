@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'package:xpense_app/widgets/expenses_list/expenses_list.dart';
@@ -52,8 +50,8 @@ class _ExpensesState extends State<Expenses> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        duration: Duration(seconds: 3),
-        content: Text('Expense deleted.'),
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense deleted'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
@@ -67,7 +65,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = Center(
+    Widget mainContent = const Center(
       child: Text('No expenses found. Start adding some')
     );
 
@@ -79,7 +77,7 @@ class _ExpensesState extends State<Expenses> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Xpense Tracker'),
+        title: const Text('Expense Tracker'),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,

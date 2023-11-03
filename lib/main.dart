@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'package:xpense_app/widgets/expenses.dart';
 
-var kColorScheme = ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 96, 59, 181));
+var kColorScheme = ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 96, 59, 181));
 
 void main() {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData().copyWith(
         useMaterial3: true,
         colorScheme: kColorScheme,

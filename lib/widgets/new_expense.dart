@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'expenses.dart';
 import '../models/expense_model.dart' as categories;
 
 import 'package:intl/intl.dart';
@@ -43,13 +42,13 @@ class _NewExpenseState extends State<NewExpense> {
 
     if(_titleController.text.trim().isEmpty || amountIsInvalid || _selectedDate == null){
       showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text('Invalid input'),
-        content: Text('Please make sure a valid title, amount, date and category was entered.'),
+        title: const Text('Invalid input'),
+        content: const Text('Please make sure a valid title, amount, date and category was entered.'),
         actions: [
           TextButton(onPressed: () {
             Navigator.pop(context);
           }, 
-          child: Text('Okay'))
+          child: const Text('Okay'))
         ],
       ));
       return;
@@ -68,9 +67,16 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16, 80, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 80, 16, 16),
       child: Column(
         children: [
+          const Text(
+            'New expense:',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold            ),
+          ),
+          const SizedBox(height: 10,),
           TextField(
             controller: _titleController,
             maxLength: 50,
@@ -101,14 +107,14 @@ class _NewExpenseState extends State<NewExpense> {
                     Text(_selectedDate == null ? 'No date selected' : formatter.format(_selectedDate!)),
                     IconButton(
                       onPressed: _presentDayPicker,
-                      icon: Icon(Icons.calendar_month)
+                      icon: const Icon(Icons.calendar_month)
                     )
                   ],
                 ),
               )
             ],
           ),
-          SizedBox(height: 16,),
+          const SizedBox(height: 16,),
           Row(
             children: [
               DropdownButton(
@@ -128,17 +134,17 @@ class _NewExpenseState extends State<NewExpense> {
                   });
                 }
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel')
+                child: const Text('Cancel')
               ),
-              Spacer(),
+              const Spacer(),
               ElevatedButton(
                 onPressed: _submitExpenseData, 
-                child: Text('Save expense')
+                child: const Text('Save expense')
               ),
             ],
           )
